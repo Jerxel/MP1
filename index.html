@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FCFS CPU Scheduler</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Operating Systems &middot; Machine Problem 1</div>
+    <h1>FCFS CPU Scheduler</h1>
+    <div class="sub">First-Come-First-Served (non-preemptive) &mdash; enter processes below to compute waiting time and turnaround time for each, plus the averages.</div>
+  </header>
+
+  <div class="panel">
+    <h2>01 &middot; Set up processes</h2>
+    <div class="row">
+      <div class="field">
+        <label for="numProc">Number of processes (3&ndash;10)</label>
+        <input type="number" id="numProc" min="3" max="10">
+      </div>
+      <button id="genBtn">Generate fields</button>
+    </div>
+    <div class="hint" id="genHint"></div>
+  </div>
+
+  <div class="panel" id="inputPanel" style="display:none;">
+    <h2>02 &middot; Process ID, arrival time &amp; burst time</h2>
+    <div class="process-grid" id="processGrid"></div>
+    <div class="row" style="margin-top:20px;">
+      <button id="computeBtn">Compute schedule</button>
+      <button id="resetBtn" class="secondary" type="button">Reset</button>
+    </div>
+    <div class="error-box" id="errorBox"></div>
+  </div>
+
+  <div class="panel results" id="resultsPanel">
+    <h2>03 &middot; Gantt chart</h2>
+    <div class="gantt-times-wrap">
+      <div class="gantt" id="ganttChart"></div>
+    </div>
+
+    <h2 style="margin-top:34px;">04 &middot; Results</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>PID</th>
+          <th>Arrival</th>
+          <th>Burst</th>
+          <th>Start</th>
+          <th>Completion</th>
+          <th>Turnaround</th>
+          <th>Waiting</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+
+    <div class="summary">
+      <div class="stat">
+        <div class="label">Average waiting time</div>
+        <div class="value" id="avgWait">&mdash;</div>
+      </div>
+      <div class="stat">
+        <div class="label">Average turnaround time</div>
+        <div class="value" id="avgTAT">&mdash;</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>FCFS is non-preemptive: processes run strictly in order of arrival time.</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
