@@ -19,10 +19,15 @@ function clearError(){
   errorBox.innerHTML = '';
 }
 
-function generateFields() {
+function generateFields(preserveValues = true) {
   clearError();
   resultsPanel.classList.remove('show');
   const n = parseInt(numProcInput.value, 10);
+
+  // Save whatever the user already typed, keyed by row index
+  const existingPid = preserveValues ? [...document.querySelectorAll('.pid')].map(el => el.value) : [];
+  const existingArrival = preserveValues ? [...document.querySelectorAll('.arrival')].map(el => el.value) : [];
+  const existingBurst = preserveValues ? [...document.querySelectorAll('.burst')].map(el => el.value) : [];
 
   processGrid.innerHTML = '';
   const header = document.createElement('div');
@@ -40,27 +45,26 @@ function generateFields() {
     row.innerHTML = `
       <div class="idx">${i}</div>
       <div class="pid-wrap">
-        <input type="text" class="pid">
+        <input type="text" class="pid" value="${existingPid[i-1] || ''}">
         <div class="pid-warn"></div>
       </div>
       <div class="num-wrap">
-        <input type="text" inputmode="numeric" class="arrival">
+        <input type="text" inputmode="numeric" class="arrival" value="${existingArrival[i-1] || ''}">
         <div class="pid-warn"></div>
       </div>
       <div class="num-wrap">
-        <input type="text" inputmode="numeric" class="burst">
+        <input type="text" inputmode="numeric" class="burst" value="${existingBurst[i-1] || ''}">
         <div class="pid-warn"></div>
       </div>`;
     processGrid.appendChild(row);
   }
 }
-
 numProcInput.addEventListener('change', generateFields);
 generateFields();
 
 resetBtn.addEventListener('click', () => {
   numProcInput.value = '3';
-  generateFields();
+  generateFields(false);
 });
 
 document.addEventListener('input', (e) => {
