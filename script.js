@@ -1,5 +1,5 @@
 const numProcInput = document.getElementById('numProc');
-const inputPanel = document.getElementById('inputPanel');
+const processGrid = document.getElementById('processGrid');
 const computeBtn = document.getElementById('computeBtn');
 const resetBtn = document.getElementById('resetBtn');
 const errorBox = document.getElementById('errorBox');
