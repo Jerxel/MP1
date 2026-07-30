@@ -24,7 +24,6 @@ function generateFields(preserveValues = true) {
   resultsPanel.classList.remove('show');
   const n = parseInt(numProcInput.value, 10);
 
-  // Save whatever the user already typed, keyed by row index
   const existingPid = preserveValues ? [...document.querySelectorAll('.pid')].map(el => el.value) : [];
   const existingArrival = preserveValues ? [...document.querySelectorAll('.arrival')].map(el => el.value) : [];
   const existingBurst = preserveValues ? [...document.querySelectorAll('.burst')].map(el => el.value) : [];
