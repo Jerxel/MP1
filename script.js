@@ -219,8 +219,8 @@ function runFCFS(processes) {
 
   const avgWait = results.reduce((s, r) => s + r.waiting, 0) / results.length;
   const avgTAT = results.reduce((s, r) => s + r.turnaround, 0) / results.length;
-  avgWaitEl.textContent = avgWait.toFixed(2);
-  avgTATEl.textContent = avgTAT.toFixed(2);
+  avgWaitEl.textContent = avgWait.toFixed(2) + ' ms';
+  avgTATEl.textContent = avgTAT.toFixed(2) + ' ms';
 
   resultsPanel.classList.add('show');
   resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
