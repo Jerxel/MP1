@@ -185,6 +185,8 @@ function runFCFS(processes) {
       <td class="num">${r.waiting}</td>
     </tr>`).join('');
 
+  resultsPanel.classList.add('show');
+
   // Render Gantt chart
   const scale = 26;
   const availableWidth = ganttChart.clientWidth;
@@ -213,6 +215,5 @@ function runFCFS(processes) {
   avgWaitEl.textContent = avgWait.toFixed(2) + ' ms';
   avgTATEl.textContent = avgTAT.toFixed(2) + ' ms';
 
-  resultsPanel.classList.add('show');
   resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
