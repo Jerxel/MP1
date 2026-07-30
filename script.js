@@ -57,7 +57,6 @@ function generateFields() {
       </div>`;
     processGrid.appendChild(row);
   }
-  inputPanel.style.display = 'block';
 }
 
 numProcInput.addEventListener('change', generateFields);

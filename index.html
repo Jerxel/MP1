@@ -14,11 +14,11 @@
     <div class="sub">First-Come-First-Served (non-preemptive) &mdash; enter processes below to compute waiting time and turnaround time for each, plus the averages.</div>
   </header>
 
-  <div class="panel">
-    <h2>01 &middot; Set up processes</h2>
-    <div class="row">
-      <div class="field">
-        <label for="numProc">Number of processes (3&ndash;10)</label>
+<div class="panel" id="inputPanel">
+    <div class="panel-header">
+      <h2>01 &middot; Process ID, arrival time &amp; burst time</h2>
+      <div class="field select-field">
+        <label for="numProc">Processes</label>
         <select id="numProc">
           <option value="3">3</option>
           <option value="4">4</option>
@@ -31,10 +31,6 @@
         </select>
       </div>
     </div>
-  </div>
-
-  <div class="panel" id="inputPanel" style="display:none;">
-    <h2>02 &middot; Process ID, arrival time &amp; burst time</h2>
     <div class="process-grid" id="processGrid"></div>
     <div class="row" style="margin-top:20px;">
       <button id="computeBtn">Compute schedule</button>
