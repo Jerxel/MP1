@@ -169,14 +169,6 @@ td.num{color:var(--accent); font-variant-numeric:tabular-nums;}
 }
 .pid-warn.show{display:block;}
 
-input[type=number]{
-  -moz-appearance: textfield;
-}
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button{
-  -webkit-appearance: none;
-  margin: 0;
-}
 .num-wrap{
   position: relative;
 }

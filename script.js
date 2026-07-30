@@ -1,6 +1,5 @@
 const numProcInput = document.getElementById('numProc');
 const inputPanel = document.getElementById('inputPanel');
-const processGrid = document.getElementById('processGrid');
 const computeBtn = document.getElementById('computeBtn');
 const resetBtn = document.getElementById('resetBtn');
 const errorBox = document.getElementById('errorBox');
@@ -45,11 +44,11 @@ function generateFields() {
         <div class="pid-warn"></div>
       </div>
       <div class="num-wrap">
-        <input type="text" inputmode="numeric" class="arrival" min="0">
+        <input type="text" inputmode="numeric" class="arrival">
         <div class="pid-warn"></div>
       </div>
       <div class="num-wrap">
-        <input type="text" inputmode="numeric" class="burst" min="1">
+        <input type="text" inputmode="numeric" class="burst">
         <div class="pid-warn"></div>
       </div>`;
     processGrid.appendChild(row);
@@ -91,17 +90,6 @@ document.addEventListener('input', (e) => {
       warn.classList.remove('show');
     }
   }
-});
-
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.spin-up, .spin-down');
-  if (!btn) return;
-  const input = btn.closest('.num-wrap').querySelector('input[type=number]');
-  const min = input.min !== '' ? Number(input.min) : -Infinity;
-  const max = input.max !== '' ? Number(input.max) : Infinity;
-  let value = Number(input.value) || 0;
-  value += btn.classList.contains('spin-up') ? 1 : -1;
-  input.value = Math.min(max, Math.max(min, value));
 });
 
 computeBtn.addEventListener('click', () => {
@@ -151,8 +139,8 @@ computeBtn.addEventListener('click', () => {
 
   // Unique arrival time check
   const arrivalCounts = {};
-  processes.forEach(p => {
-    if (isNaN(p.arrival)) return;
+  processes.forEach((p, i) => {
+    if (arrivalInputs[i].value.trim() === '' || isNaN(p.arrival)) return;
     arrivalCounts[p.arrival] = (arrivalCounts[p.arrival] || 0) + 1;
   });
   Object.entries(arrivalCounts).forEach(([t, count]) => {
