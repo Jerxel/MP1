@@ -40,20 +40,17 @@ function generateFields() {
     row.className = 'process-row';
     row.innerHTML = `
       <div class="idx">${i}</div>
-      <input type="text" class="pid" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')">
-      <div class="num-wrap">
-        <input type="number" class="arrival" min="0">
-        <div class="spin-group">
-          <span class="spin spin-up"></span>
-          <span class="spin spin-down"></span>
-        </div>
+      <div class="pid-wrap">
+        <input type="text" class="pid">
+        <div class="pid-warn"></div>
       </div>
       <div class="num-wrap">
-        <input type="number" class="burst" min="1">
-        <div class="spin-group">
-          <span class="spin spin-up"></span>
-          <span class="spin spin-down"></span>
-        </div>
+        <input type="text" inputmode="numeric" class="arrival" min="0">
+        <div class="pid-warn"></div>
+      </div>
+      <div class="num-wrap">
+        <input type="text" inputmode="numeric" class="burst" min="1">
+        <div class="pid-warn"></div>
       </div>`;
     processGrid.appendChild(row);
   }
@@ -65,6 +62,35 @@ generateFields();
 resetBtn.addEventListener('click', () => {
   numProcInput.value = '3';
   generateFields();
+});
+
+document.addEventListener('input', (e) => {
+  const input = e.target;
+
+  if (input.classList.contains('pid')) {
+    const warn = input.closest('.pid-wrap').querySelector('.pid-warn');
+    const cleaned = input.value.replace(/[^A-Za-z0-9]/g, '');
+    if (cleaned !== input.value) {
+      warn.textContent = 'Special characters and spaces are not allowed.';
+      warn.classList.add('show');
+      input.value = cleaned;
+    } else {
+      warn.classList.remove('show');
+    }
+    return;
+  }
+
+  if (input.classList.contains('arrival') || input.classList.contains('burst')) {
+    const warn = input.closest('.num-wrap').querySelector('.pid-warn');
+    const cleaned = input.value.replace(/[^0-9]/g, '');
+    if (cleaned !== input.value) {
+      warn.textContent = 'Only whole numbers are allowed.';
+      warn.classList.add('show');
+      input.value = cleaned;
+    } else {
+      warn.classList.remove('show');
+    }
+  }
 });
 
 document.addEventListener('click', (e) => {

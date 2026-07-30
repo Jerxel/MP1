@@ -147,7 +147,7 @@ th{
 tr:last-child td{border-bottom:none;}
 td.num{color:var(--accent); font-variant-numeric:tabular-nums;}
 
-.process-grid{display:flex; flex-direction:column; gap:10px;}
+.process-grid{display:flex; flex-direction:column; gap:26px;}
 .process-row{
   display:grid;
   grid-template-columns:28px 1fr 1fr 1fr;
@@ -155,6 +155,19 @@ td.num{color:var(--accent); font-variant-numeric:tabular-nums;}
   align-items:center;
 }
 .process-row .idx{color:var(--dim); font-size:12px;}
+.pid-wrap{position:relative;}
+.pid-warn{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  margin-top:6px;
+  font-size:10.5px;
+  color:var(--err);
+  line-height:1.4;
+  white-space:nowrap;
+}
+.pid-warn.show{display:block;}
 
 input[type=number]{
   -moz-appearance: textfield;
@@ -167,33 +180,9 @@ input[type=number]::-webkit-outer-spin-button{
 .num-wrap{
   position: relative;
 }
-.num-wrap input{
-  padding-right: 26px;
-}
-.spin-group{
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.spin{
-  width: 6px;
-  height: 6px;
-  border-right: 1.5px solid var(--accent);
-  border-bottom: 1.5px solid var(--accent);
-  cursor: pointer;
-}
-.spin-up{
-  transform: rotate(-135deg);
-}
-.spin-down{
-  transform: rotate(45deg);
-}
-.spin:hover{
-  border-color: var(--accent-dim);
+.num-wrap .pid-warn{
+  right:0;
+  left:auto;
 }
 
 .error-box{
