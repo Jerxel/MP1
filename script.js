@@ -1,6 +1,4 @@
 const numProcInput = document.getElementById('numProc');
-const genBtn = document.getElementById('genBtn');
-const genHint = document.getElementById('genHint');
 const inputPanel = document.getElementById('inputPanel');
 const processGrid = document.getElementById('processGrid');
 const computeBtn = document.getElementById('computeBtn');
@@ -22,24 +20,10 @@ function clearError(){
   errorBox.innerHTML = '';
 }
 
-genBtn.addEventListener('click', () => {
+function generateFields() {
   clearError();
   resultsPanel.classList.remove('show');
   const n = parseInt(numProcInput.value, 10);
-
-  if (isNaN(n)) {
-    genHint.textContent = 'Enter a number first.';
-    genHint.style.color = 'var(--err)';
-    inputPanel.style.display = 'none';
-    return;
-  }
-  if (n < 3 || n > 10) {
-    genHint.textContent = 'Number of processes must be between 3 and 10.';
-    genHint.style.color = 'var(--err)';
-    inputPanel.style.display = 'none';
-    return;
-  }
-  genHint.textContent = '';
 
   processGrid.innerHTML = '';
   const header = document.createElement('div');
@@ -74,14 +58,14 @@ genBtn.addEventListener('click', () => {
     processGrid.appendChild(row);
   }
   inputPanel.style.display = 'block';
-});
+}
+
+numProcInput.addEventListener('change', generateFields);
+generateFields();
 
 resetBtn.addEventListener('click', () => {
-  numProcInput.value = '';
-  genHint.textContent = '';
-  inputPanel.style.display = 'none';
-  resultsPanel.classList.remove('show');
-  clearError();
+  numProcInput.value = '3';
+  generateFields();
 });
 
 document.addEventListener('click', (e) => {

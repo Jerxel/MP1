@@ -19,11 +19,18 @@
     <div class="row">
       <div class="field">
         <label for="numProc">Number of processes (3&ndash;10)</label>
-        <input type="number" id="numProc" min="3" max="10">
+        <select id="numProc">
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
       </div>
-      <button id="genBtn">Generate fields</button>
     </div>
-    <div class="hint" id="genHint"></div>
   </div>
 
   <div class="panel" id="inputPanel" style="display:none;">
