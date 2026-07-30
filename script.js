@@ -58,7 +58,7 @@ function generateFields(preserveValues = true) {
     processGrid.appendChild(row);
   }
 }
-numProcInput.addEventListener('change', generateFields);
+numProcInput.addEventListener('change', () => generateFields(true));
 generateFields();
 
 resetBtn.addEventListener('click', () => {
@@ -97,6 +97,12 @@ document.addEventListener('input', (e) => {
 
 computeBtn.addEventListener('click', () => {
   clearError();
+
+  resultsBody.innerHTML = '';
+  ganttChart.innerHTML = '';
+  avgWaitEl.textContent = '—';
+  avgTATEl.textContent = '—';
+
   const pidInputs = [...document.querySelectorAll('.pid')];
   const arrivalInputs = [...document.querySelectorAll('.arrival')];
   const burstInputs = [...document.querySelectorAll('.burst')];
@@ -188,27 +194,11 @@ function runFCFS(processes) {
   resultsPanel.classList.add('show');
 
   // Render Gantt chart
-  const scale = 26;
-  const availableWidth = ganttChart.clientWidth;
-  const totalBurst = results.reduce((s, r) => s + r.burst, 0);
-  const fitsAtFixedScale = totalBurst * scale <= availableWidth;
-
-  ganttChart.innerHTML = results.map(r => {
-    if (fitsAtFixedScale) {
-      const width = Math.max(r.burst * scale, 50);
-      return `
-        <div class="gantt-block" style="width:${width}px; flex-shrink:0;">
-          <div class="pid">${r.pid}</div>
-          <div class="times">${r.start} &rarr; ${r.completion}</div>
-        </div>`;
-    } else {
-      return `
-        <div class="gantt-block" style="flex-grow:${r.burst}; flex-basis:0; min-width:0;">
-          <div class="pid">${r.pid}</div>
-          <div class="times">${r.start} &rarr; ${r.completion}</div>
-        </div>`;
-    }
-  }).join('');
+  ganttChart.innerHTML = results.map(r => `
+    <div class="gantt-block" style="flex-grow:${r.burst}; flex-basis:0; min-width:0;">
+      <div class="pid">${r.pid}</div>
+      <div class="times">${r.start} &rarr; ${r.completion}</div>
+    </div>`).join('');
 
   const avgWait = results.reduce((s, r) => s + r.waiting, 0) / results.length;
   const avgTAT = results.reduce((s, r) => s + r.turnaround, 0) / results.length;
