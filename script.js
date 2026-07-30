@@ -146,16 +146,6 @@ computeBtn.addEventListener('click', () => {
     if (count > 1) errors.push(`Process ID "${pid}" is used ${count} times — process IDs must be unique.`);
   });
 
-  // Unique arrival time check
-  const arrivalCounts = {};
-  processes.forEach((p, i) => {
-    if (arrivalInputs[i].value.trim() === '' || isNaN(p.arrival)) return;
-    arrivalCounts[p.arrival] = (arrivalCounts[p.arrival] || 0) + 1;
-  });
-  Object.entries(arrivalCounts).forEach(([t, count]) => {
-    if (count > 1) errors.push(`Arrival time "${t}" is used by ${count} processes — arrival times must be unique.`);
-  });
-
   if (errors.length) {
     showError(errors);
     resultsPanel.classList.remove('show');
@@ -196,7 +186,7 @@ function runFCFS(processes) {
   // Render Gantt chart
   ganttChart.innerHTML = results.map(r => `
     <div class="gantt-block" style="flex-grow:${r.burst}; flex-basis:0; min-width:0;">
-      <div class="pid">${r.pid}</div>
+      <div class="gantt-pid">${r.pid}</div>
       <div class="times">${r.start} &rarr; ${r.completion}</div>
     </div>`).join('');
 
