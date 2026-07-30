@@ -40,7 +40,7 @@ function generateFields() {
     row.className = 'process-row';
     row.innerHTML = `
       <div class="idx">${i}</div>
-      <input type="text" class="pid">
+      <input type="text" class="pid" oninput="this.value=this.value.replace(/[^A-Za-z0-9]/g,'')">
       <div class="num-wrap">
         <input type="number" class="arrival" min="0">
         <div class="spin-group">
@@ -92,7 +92,11 @@ computeBtn.addEventListener('click', () => {
     const arrivalRaw = arrivalInputs[i].value.trim();
     const burstRaw = burstInputs[i].value.trim();
 
-    if (!pid) errors.push(`Process ${i+1}: process ID is required.`);
+    if (!pid) {
+      errors.push(`Process ${i+1}: process ID is required.`);
+    } else if (!/^[A-Za-z0-9]+$/.test(pid)) {
+      errors.push(`Process ${i+1}: process ID "${pid}" can only contain letters and numbers — no spaces or special symbols.`);
+    }
     if (arrivalRaw === '') errors.push(`Process ${i+1}: arrival time is required.`);
     if (burstRaw === '') errors.push(`Process ${i+1}: burst time is required.`);
 
