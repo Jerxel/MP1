@@ -156,8 +156,9 @@ computeBtn.addEventListener('click', () => {
 });
 
 function runFCFS(processes) {
-  // FCFS: order strictly by arrival time
-  const sorted = [...processes].sort((a, b) => a.arrival - b.arrival);
+  const sorted = processes
+  .map((p, i) => ({ ...p, index: i }))
+  .sort((a, b) => a.arrival - b.arrival || a.index - b.index);
 
   let clock = 0;
   const results = sorted.map(p => {
