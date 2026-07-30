@@ -186,8 +186,8 @@ function runFCFS(processes) {
       <td class="num">${r.waiting}</td>
     </tr>`).join('');
 
-  // Render Gantt chart — fixed scale normally, but shrink to fit if it would overflow
-  const scale = 26; // px per time unit
+  // Render Gantt chart
+  const scale = 26;
   const availableWidth = ganttChart.clientWidth;
   const totalBurst = results.reduce((s, r) => s + r.burst, 0);
   const fitsAtFixedScale = totalBurst * scale <= availableWidth;
