@@ -133,7 +133,7 @@ computeBtn.addEventListener('click', () => {
       errors.push(`Process ${i+1}: burst time must be a number greater than 0.`);
     }
 
-    processes.push({ pid, arrival, burst });
+    processes.push({ pid, arrival, burst, arrivalRaw });
   });
 
   // Unique process ID check
@@ -146,7 +146,17 @@ computeBtn.addEventListener('click', () => {
     if (count > 1) errors.push(`Process ID "${pid}" is used ${count} times — process IDs must be unique.`);
   });
 
-  if (errors.length) {
+  // Unique arrival time check
+  const arrivalCounts = {};
+  processes.forEach(p => {
+    if (p.arrivalRaw === '') return;
+    arrivalCounts[p.arrival] = (arrivalCounts[p.arrival] || 0) + 1;
+  });
+  Object.entries(arrivalCounts).forEach(([arrival, count]) => {
+    if (count > 1) errors.push(`Arrival time "${arrival}" is used ${count} times — arrival times must be unique.`);
+  });
+
+  if (errors.length) {          
     showError(errors);
     resultsPanel.classList.remove('show');
     return;
